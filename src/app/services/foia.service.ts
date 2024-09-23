@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { TableData, TableRowsData } from '../types/table';
+import { environment } from '../../environments/environment.development';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class FoiaService {
-  apiKey : string = '&api_key=ANGEk6xvXLikq4N0ozb0Nz5RaxpryLJXjqSYaynY'
+  apiKey : string = '&api_key='+ environment.api_key
   links : TableData["links"] | null = null;
   tableData: TableRowsData["attributes"][] | null = null;
   constructor() { }
