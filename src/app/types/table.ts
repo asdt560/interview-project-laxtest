@@ -1,41 +1,53 @@
 export type TableData = {
-  data: TableRows[],
+  data: TableRowsData[],
   links: {
     next: {
-      href: String,
+      href: string,
     }
     self: {
-      href: String
+      href: string
     }
   }
 }
 
-export type TableRows = {
-  type: String,
-  attributes: {
-    abbreviation: String,
-    submission_address?: SubmissionAddress,
-    title: String,
-    website: String | null
+export type TableRow = {
+  title: string,
+  website: {
+    title : string,
+    uri?: string
   },
-  id: String,
+  address: string
+}
+
+export type TableRowsData = {
+  type: string,
+  attributes: {
+    abbreviation: string,
+    submission_address?: SubmissionAddress,
+    title: string,
+    website: {
+      title : string,
+      uri: string
+    } | null,
+  },
+  id: string,
   links: {
-    self: String,
+    self: string,
   },
 }
 
 export type SubmissionAddress = {
-  langcode?: String,
-  country_code?: String,
-  administrative_area?: String,
-  locality?: String,
-  dependent_locality?: String | null,
-  postal_code?: String,
-  sorting_cod?: String | null,
-  address_line1?: String,
-  address_line2?: String,
-  organization?: String,
-  given_name?: String | null,
-  additional_name?: String | null,
-  family_name?: String | null
+  langcode?: string,
+  country_code?: string,
+  administrative_area?: string,
+  locality?: string,
+  dependent_locality?: string | null,
+  postal_code?: string,
+  sorting_cod?: string | null,
+  address_line1?: string,
+  address_line2?: string,
+  organization?: string,
+  given_name?: string | null,
+  additional_name?: string | null,
+  family_name?: string | null
 }
