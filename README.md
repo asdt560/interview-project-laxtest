@@ -53,6 +53,7 @@ Describe 3 things you dislike about Angular.
 - It can be hard to update between versions.
 If there are any items that you did not complete, please list them out.
 If you had 40 hours to work on this project, please describe all the improvements you would incorporate:
+- Create fully-featured details page with information about agencies.
 - Add placeholder to smooth out the initial load of the table data.
 - Improve styles to make it look better overall.
 - Add thorough testing.

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { TableData, TableRowsData } from '../types/table';
+import { agencyData, TableData, TableRowsData } from '../types/table';
 import { environment } from '../../environments/environment.development';
 
 
@@ -8,8 +8,12 @@ import { environment } from '../../environments/environment.development';
 })
 export class FoiaService {
   apiKey : string = '&api_key='+ environment.api_key
+
   links : TableData["links"] | null = null;
-  tableData: TableRowsData["attributes"][] | null = null;
+
+  tableData: TableRowsData[] | null = null;
+
+  agencyData : agencyData["data"] | null = null;
   constructor() { }
   async getTableData(pagination : number) {
     let url = `
@@ -19,7 +23,7 @@ export class FoiaService {
     const data : TableData = await fetch(url).then((resp) => resp.json())
     if(data) {
       console.log(data)
-      this.tableData = data.data.map(({attributes}) => attributes);
+      this.tableData = data.data
       this.links = data.links;
       return this.tableData;
     } else {
@@ -35,9 +39,20 @@ export class FoiaService {
     const data : TableData = await fetch(url + this.apiKey).then((resp) => resp.json())
     if(data) {
       console.log(data)
-      this.tableData = data.data.map(({attributes}) => attributes);
+      this.tableData = data.data
       this.links = data.links;
       return this.tableData;
+    } else {
+      return null;
+    }
+  }
+
+  async getAgencyData(id: string) {
+    let url = "https:\/\/api.foia.gov\/api\/agency_components\/"+id+"?"
+    const data : agencyData = await fetch(url + this.apiKey).then((resp) => resp.json())
+    if(data) {
+      this.agencyData = data.data;
+      return this.agencyData;
     } else {
       return null;
     }

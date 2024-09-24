@@ -3,12 +3,12 @@ import { FormsModule } from '@angular/forms';
 import { FoiaService } from '../../services/foia.service';
 import { TableRow, TableRowsData } from '../../types/table';
 import { MatTableModule } from '@angular/material/table';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { RouterModule } from '@angular/router'
 
 @Component({
   selector: 'app-main',
   standalone: true,
-  imports: [MatTableModule, MatPaginatorModule, FormsModule],
+  imports: [MatTableModule, FormsModule, RouterModule],
   templateUrl: './main.component.html',
   styleUrl: './main.component.css'
 })
@@ -43,24 +43,25 @@ export class MainComponent {
     })
   }
 
-  createTable(data: TableRowsData["attributes"][]) {
+  createTable(data: TableRowsData[]) {
     this.tableRows = []
     data.forEach((obj) => {
       this.tableRows.push({
-        title: `${obj.title} (${obj.abbreviation})`,
-        website: obj.website? {
+        title: `${obj.attributes.title} (${obj.attributes.abbreviation})`,
+        website: obj.attributes.website? {
           title: 
-          obj.website.uri? obj.website.title? 
-          obj.website.title : 'Website' : 'No Website',
-          uri: obj.website.uri? obj.website.uri: ""
+          obj.attributes.website.uri? obj.attributes.website.title? 
+          obj.attributes.website.title : 'Website' : 'No Website',
+          uri: obj.attributes.website.uri? obj.attributes.website.uri: ""
         } : {title: 'No Website'},
-        address: obj.submission_address? `
-          ${obj.submission_address.address_line1}, 
-          ${obj.submission_address.address_line2}, 
-          ${obj.submission_address.locality}, 
-          ${obj.submission_address.administrative_area} 
-          ${obj.submission_address.postal_code}, 
-          ${obj.submission_address.country_code}`: "No Address"
+        address: obj.attributes.submission_address? `
+          ${obj.attributes.submission_address.address_line1}, 
+          ${obj.attributes.submission_address.address_line2}, 
+          ${obj.attributes.submission_address.locality}, 
+          ${obj.attributes.submission_address.administrative_area} 
+          ${obj.attributes.submission_address.postal_code}, 
+          ${obj.attributes.submission_address.country_code}`: "No Address",
+        id: obj.id
       })
     })
   }
